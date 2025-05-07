@@ -1,10 +1,9 @@
+// routes/userRoutes.js
 const express = require('express');
+const { registerEmail } = require('../controller/usercontroller'); // Import from userController
 const router = express.Router();
-const { registerUser, loginUser } = require('../controller/usercontroller');
 
-
-router.post('/register', registerUser);
-router.post('/login', loginUser);
-// router.get('/profile', validateUser, getUserProfile); // protected route
+// Route for Step 1: Register Email
+router.post('/register-email', registerEmail);
 
 module.exports = router;

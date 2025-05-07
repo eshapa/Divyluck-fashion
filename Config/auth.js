@@ -1,16 +1,17 @@
-const jwt = require('jsonwebtoken');
+// Config/auth.js
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const validateUser = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ message: 'Access Denied' });
+const JWT_SECRET = process.env.JWT_SECRET || "product123";
 
-  try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = verified;
-    next();
-  } catch (err) {
-    res.status(401).json({ message: 'Invalid Token' });
-  }
+// Function to generate a JWT token
+const generateToken = (userId) => {
+    return jwt.sign({ userId }, JWT_SECRET, { expiresIn: "1h" });
 };
 
-module.exports = validateUser;
+// Function to verify JWT token
+const verifyToken = (token) => {
+    return jwt.verify(token, JWT_SECRET);
+};
+
+module.exports = { generateToken, verifyToken };

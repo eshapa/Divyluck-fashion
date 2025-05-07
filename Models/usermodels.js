@@ -1,21 +1,15 @@
+// models/userModel.js
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  phone: String,
-  address: String,
-  gender: String,
-  role: {
+  email: {
     type: String,
-    enum: ['user', 'tailor', 'shopkeeper'],
-    default: 'user',
+    required: true,
+    unique: true
   },
-  registeredOn: {
-    type: Date,
-    default: Date.now,
-  },
+  // You can add other fields like name, password later
 });
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
